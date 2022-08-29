@@ -1,5 +1,5 @@
 
-const Numbers = ({ persons }) => {
+const Numbers = ({persons}) => {
 
 
     return (

@@ -4,7 +4,8 @@ import Numbers from './components/Numbers'
 const App = () => {
 
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas' },
+    { name: 'Thisother Guy'}
   ]) 
 
   const [newName, setNewName] = useState('')
@@ -22,7 +23,7 @@ const App = () => {
         </div>
       </form>
 
-      <Numbers />
+      <Numbers persons={persons}/>
 
     </div>
   )

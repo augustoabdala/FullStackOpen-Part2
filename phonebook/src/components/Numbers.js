@@ -1,9 +1,14 @@
 
-const Numbers = (props) => {
+const Numbers = ({ persons }) => {
+
 
     return (
         <div>
-            henlo
+            <ul>
+                {persons.map(
+                    per => <li key={per.name}> {per.name} </li>
+                )}
+            </ul>
         </div>
     )
 

@@ -1,11 +1,10 @@
 
-const Numbers = ({ persons }) => {
-
-
+const Numbers = (props) => {
+    
     return (
         <div>
             <ul>
-                {persons.map(per =>
+                {props.search.map(per =>
                     <li key={per.name}> {per.name}: {per.num} </li>
                 )}
             </ul>

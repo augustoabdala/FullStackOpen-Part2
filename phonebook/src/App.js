@@ -59,7 +59,6 @@ const App = () => {
     const query = event.target.value;
 
     if (query === '') {
-      console.log("dis empty")
       setShown(persons)
     } else {
 

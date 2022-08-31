@@ -1,54 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+
 import Numbers from './components/Numbers'
 import Form from './components/Form'
 import Filter from './components/Filter'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    [{
-      id: 1,
-      name: 'Arto Hellas',
-      num: '040-1234567'
-    },
-    {
-      id: 2,
-      name: 'Thisother Guy',
-      num: '040-1234568'
-    },
-    {
-      id: 3,
-      name: 'Dan Abramov',
-      num: '12-43-234345'
-    },
-    {
-      id: 4,
-      name: 'Mary Poppendieck',
-      num: '39-23-6423122'
-    }], [{
-      id: 1,
-      name: 'Arto Hellas',
-      num: '040-1234567'
-    },
-    {
-      id: 2,
-      name: 'Thisother Guy',
-      num: '040-1234568'
-    },
-    {
-      id: 3,
-      name: 'Dan Abramov',
-      num: '12-43-234345'
-    },
-    {
-      id: 4,
-      name: 'Mary Poppendieck',
-      num: '39-23-6423122'
-    }]
-  ])
+  const [persons, setPersons] = useState([[],[]])
   const [newName, setNewName] = useState('name')
   const [newNum, setNewNum] = useState('1234')
 
-  const addContact = (event) => {
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/phones')
+      .then(response => {
+        setPersons([response.data, response.data])
+      })
+  }, [])
+
+  function addContact(event) {
     event.preventDefault()
 
     const obj = {
@@ -63,17 +33,19 @@ const App = () => {
 
         const newArray = [persons[0].concat(obj), persons[1].concat(obj)]
 
-        setPersons(newArray)     
+        setPersons(newArray)
         setNewNum('')
         setNewName('')
 
-      } else (
-        alert(`The number: ${obj.num} is already added to the phonebook.`)
-      )
+      } else
+        (
+          alert(`The number: ${obj.num} is already added to the phonebook.`)
+        )
 
-    } else (
-      alert(`The name: ${obj.name} is already added to the phonebook.`)
-    )
+    } else
+      (
+        alert(`The name: ${obj.name} is already added to the phonebook.`)
+      )
   }
 
   const handleNameChange = (event) => {

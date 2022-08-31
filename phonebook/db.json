@@ -1,0 +1,24 @@
+{
+    "phones": [
+        {
+            "id": 1,
+            "name": "Arto Hellas",
+            "num": "040-1234567"
+        },
+        {
+            "id": 2,
+            "name": "Thisother Guy",
+            "num": "040-1234568"
+        }, 
+        {
+            "id": 3,
+            "name": "Dan Abramov",
+            "num": "12-43-234345"
+        },
+        {
+            "id": 4,
+            "name": "Mary Poppendieck",
+            "num": "39-23-6423122"
+        }
+    ]
+}

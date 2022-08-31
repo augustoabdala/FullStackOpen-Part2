@@ -1,11 +1,15 @@
+import Num from "./Num"
 
 const Numbers = (props) => {
-    
     return (
         <div>
             <ul>
-                {props.search.map(per =>
-                    <li key={per.name}> {per.name}: {per.num} </li>
+                {props.search.map(per => {
+                    return (
+                        <Num key={per.num} contact={per}/>
+                        // <li key={per.num}>{per.name}</li>
+                    )
+                }
                 )}
             </ul>
         </div>

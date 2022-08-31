@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import Numbers from './components/Numbers'
+import Form from './components/Form'
+import Filter from './components/Filter'
 
 const App = () => {
-
   const [persons, setPersons] = useState([
-    {
+    [{
       id: 1,
       name: 'Arto Hellas',
       num: '040-1234567'
@@ -13,11 +14,37 @@ const App = () => {
       id: 2,
       name: 'Thisother Guy',
       num: '040-1234568'
-    }
+    },
+    {
+      id: 3,
+      name: 'Dan Abramov',
+      num: '12-43-234345'
+    },
+    {
+      id: 4,
+      name: 'Mary Poppendieck',
+      num: '39-23-6423122'
+    }], [{
+      id: 1,
+      name: 'Arto Hellas',
+      num: '040-1234567'
+    },
+    {
+      id: 2,
+      name: 'Thisother Guy',
+      num: '040-1234568'
+    },
+    {
+      id: 3,
+      name: 'Dan Abramov',
+      num: '12-43-234345'
+    },
+    {
+      id: 4,
+      name: 'Mary Poppendieck',
+      num: '39-23-6423122'
+    }]
   ])
-
-  const [shown, setShown] = useState(persons)
-
   const [newName, setNewName] = useState('name')
   const [newNum, setNewNum] = useState('1234')
 
@@ -30,13 +57,16 @@ const App = () => {
       num: newNum
     }
 
-    if (!persons.find(per => per.name === obj.name)) {
+    if (!persons[0].find(per => per.name === obj.name)) {
 
-      if (!persons.find(per => per.num === obj.num)) {
-        setPersons(persons.concat(obj))
+      if (!persons[0].find(per => per.num === obj.num)) {
+
+        const newArray = [persons[0].concat(obj), persons[1].concat(obj)]
+
+        setPersons(newArray)     
         setNewNum('')
         setNewName('')
-        setShown(persons)
+
       } else (
         alert(`The number: ${obj.num} is already added to the phonebook.`)
       )
@@ -59,48 +89,37 @@ const App = () => {
     const query = event.target.value;
 
     if (query === '') {
-      setShown(persons)
+      const notFiltered = persons[0]
+      setPersons([notFiltered, notFiltered])
     } else {
 
-      var updatedList = [...persons];
+      var cleanList = persons[0]
+      var updatedList = persons[0]
 
       updatedList = updatedList.filter(
         (item) => {
           return item.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
         }
       )
-      setShown(updatedList);
+
+      setPersons([cleanList, updatedList]);
     }
 
   };
 
-
-
   return (
-
 
     <div>
       <h2>Phonebook</h2>
 
-      <div>
-        filter: <input onChange={handleFilterChange} />
-      </div>
+      <Filter handle={handleFilterChange} />
 
       <h2>Add a new</h2>
 
-      <form onSubmit={addContact}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value={newNum} onChange={handleNumChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-
-      <Numbers search={shown} />
+      <Form addContact={addContact} handleNameChange={handleNameChange}
+      handleNumChange={handleNumChange} newNum={newNum} newName={newName}/>
+    
+      <Numbers search={persons[1]} />
 
     </div>
   )

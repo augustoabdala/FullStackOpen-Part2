@@ -6,7 +6,7 @@ import Form from './components/Form'
 import Filter from './components/Filter'
 
 const App = () => {
-  const [persons, setPersons] = useState([[],[]])
+  const [persons, setPersons] = useState([[], []])
   const [newName, setNewName] = useState('name')
   const [newNum, setNewNum] = useState('1234')
 
@@ -22,7 +22,7 @@ const App = () => {
     event.preventDefault()
 
     const obj = {
-      id: persons.length + 1,
+      id: persons[0].length + 1,
       name: newName,
       num: newNum
     }
@@ -33,9 +33,16 @@ const App = () => {
 
         const newArray = [persons[0].concat(obj), persons[1].concat(obj)]
 
-        setPersons(newArray)
-        setNewNum('')
-        setNewName('')
+        axios
+          .post('http://localhost:3001/phones', obj)
+          .then(response => {
+            console.log(response)
+            setPersons(newArray)
+            setNewNum('')
+            setNewName('')
+          })
+
+
 
       } else
         (
@@ -89,8 +96,8 @@ const App = () => {
       <h2>Add a new</h2>
 
       <Form addContact={addContact} handleNameChange={handleNameChange}
-      handleNumChange={handleNumChange} newNum={newNum} newName={newName}/>
-    
+        handleNumChange={handleNumChange} newNum={newNum} newName={newName} />
+
       <Numbers search={persons[1]} />
 
     </div>

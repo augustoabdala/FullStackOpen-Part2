@@ -5,16 +5,18 @@ import Numbers from './components/Numbers'
 import Form from './components/Form'
 import Filter from './components/Filter'
 
+import phoneServices from './services/phones'
+
 const App = () => {
   const [persons, setPersons] = useState([[], []])
   const [newName, setNewName] = useState('name')
   const [newNum, setNewNum] = useState('1234')
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/phones')
-      .then(response => {
-        setPersons([response.data, response.data])
+    phoneServices   
+      .getAll()
+      .then(initialPersons => {
+        setPersons([initialPersons, initialPersons])
       })
   }, [])
 
@@ -22,7 +24,6 @@ const App = () => {
     event.preventDefault()
 
     const obj = {
-      id: persons[0].length + 1,
       name: newName,
       num: newNum
     }
@@ -33,10 +34,10 @@ const App = () => {
 
         const newArray = [persons[0].concat(obj), persons[1].concat(obj)]
 
-        axios
-          .post('http://localhost:3001/phones', obj)
-          .then(response => {
-            console.log(response)
+        phoneServices
+          .create(obj)
+          .then(newObject => {
+            console.log(newObject)
             setPersons(newArray)
             setNewNum('')
             setNewName('')

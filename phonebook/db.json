@@ -29,6 +29,16 @@
       "id": 6,
       "name": "Johana Leviathan",
       "num": "65-45-458498"
+    },
+    {
+      "name": "New Test",
+      "num": "45-89-987654",
+      "id": 7
+    },
+    {
+      "name": "Another Phone",
+      "num": "00-00-000000",
+      "id": 8
     }
   ]
 }

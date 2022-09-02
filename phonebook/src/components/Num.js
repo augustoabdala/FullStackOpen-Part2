@@ -1,8 +1,6 @@
-
 const Num = (props) => {
-
     return (
-        <li key={props.contact.name}> {props.contact.name}: {props.contact.num} </li>
+        <li style={{display: "inline"}}> {props.contact.name}: {props.contact.num} </li>
     )
 }
 

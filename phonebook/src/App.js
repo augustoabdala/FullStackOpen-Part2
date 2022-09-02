@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 
 import Numbers from './components/Numbers'
 import Form from './components/Form'
@@ -9,15 +8,19 @@ import phoneServices from './services/phones'
 
 const App = () => {
   const [persons, setPersons] = useState([[], []])
-  const [newName, setNewName] = useState('name')
-  const [newNum, setNewNum] = useState('1234')
+  const [newName, setNewName] = useState('')
+  const [newNum, setNewNum] = useState('')
+
+  const reloadDb = () => {
+    phoneServices
+    .getAll()
+    .then(initialPersons => {
+      setPersons([initialPersons, initialPersons])
+    })
+  }
 
   useEffect(() => {
-    phoneServices   
-      .getAll()
-      .then(initialPersons => {
-        setPersons([initialPersons, initialPersons])
-      })
+    reloadDb()
   }, [])
 
   function addContact(event) {
@@ -25,25 +28,20 @@ const App = () => {
 
     const obj = {
       name: newName,
-      num: newNum
+      num: newNum,
     }
 
     if (!persons[0].find(per => per.name === obj.name)) {
 
       if (!persons[0].find(per => per.num === obj.num)) {
 
-        const newArray = [persons[0].concat(obj), persons[1].concat(obj)]
-
         phoneServices
           .create(obj)
-          .then(newObject => {
-            console.log(newObject)
-            setPersons(newArray)
+          .then((data) => {
+            setPersons([persons[0].concat(data), persons[1].concat(data)])
             setNewNum('')
             setNewName('')
           })
-
-
 
       } else
         (
@@ -54,6 +52,12 @@ const App = () => {
       (
         alert(`The name: ${obj.name} is already added to the phonebook.`)
       )
+  }
+
+  const delNum = (id) => {
+    phoneServices
+      .deleteNum(id)
+      .then(() => reloadDb())
   }
 
   const handleNameChange = (event) => {
@@ -99,7 +103,7 @@ const App = () => {
       <Form addContact={addContact} handleNameChange={handleNameChange}
         handleNumChange={handleNumChange} newNum={newNum} newName={newName} />
 
-      <Numbers search={persons[1]} />
+      <Numbers search={persons[1]} delNum={delNum} />
 
     </div>
   )

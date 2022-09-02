@@ -13,10 +13,10 @@ const App = () => {
 
   const reloadDb = () => {
     phoneServices
-    .getAll()
-    .then(initialPersons => {
-      setPersons([initialPersons, initialPersons])
-    })
+      .getAll()
+      .then(initialPersons => {
+        setPersons([initialPersons, initialPersons])
+      })
   }
 
   useEffect(() => {
@@ -54,10 +54,13 @@ const App = () => {
       )
   }
 
-  const delNum = (id) => {
-    phoneServices
-      .deleteNum(id)
-      .then(() => reloadDb())
+  const delNum = (per) => {
+
+    if (window.confirm(`Delete: ${per.name}`)) {
+      phoneServices
+        .deleteNum(per.id)
+        .then(() => reloadDb())
+    }
   }
 
   const handleNameChange = (event) => {

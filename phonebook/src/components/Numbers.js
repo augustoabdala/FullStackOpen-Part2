@@ -9,7 +9,7 @@ const Numbers = (props) => {
                     return (
                         <div key={per.num}>
                             <Num contact={per} />
-                            <DelButton id={per.id} delNum={()=>props.delNum(per.id)}/>
+                            <DelButton delNum={()=>props.delNum(per)}/>
                         </div>
                     )
                 }

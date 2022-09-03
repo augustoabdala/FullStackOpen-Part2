@@ -48,14 +48,18 @@ const App = () => {
           alert(`The number: ${obj.num} is already added to the phonebook.`)
         )
 
-    } else
-      (
-        alert(`The name: ${obj.name} is already added to the phonebook.`)
-      )
+    } else if (window.confirm(`${obj.name} is already added to the phonebook,
+    replace the old number with a new one? `)) {
+
+      let id = persons[0].find(per => per.name === obj.name).id
+
+      phoneServices
+        .update(id, obj)
+        .then(() => reloadDb())
+    }
   }
 
   const delNum = (per) => {
-
     if (window.confirm(`Delete: ${per.name}`)) {
       phoneServices
         .deleteNum(per.id)

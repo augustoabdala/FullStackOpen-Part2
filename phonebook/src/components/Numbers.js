@@ -8,7 +8,7 @@ const Numbers = (props) => {
                 {props.search.map(per => {
                     return (
                         <div key={per.num}>
-                            <Num contact={per} />
+                            <Num className='numbers' contact={per} />
                             <DelButton delNum={()=>props.delNum(per)}/>
                         </div>
                     )

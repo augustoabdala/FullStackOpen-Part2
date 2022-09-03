@@ -4,12 +4,18 @@ import Numbers from './components/Numbers'
 import Form from './components/Form'
 import Filter from './components/Filter'
 
+import Notification from './notifications/Notification'
+
 import phoneServices from './services/phones'
+
+import './index.css'
 
 const App = () => {
   const [persons, setPersons] = useState([[], []])
   const [newName, setNewName] = useState('')
   const [newNum, setNewNum] = useState('')
+  const [errorMessage, setErrorMessage] = useState('some error happened...')
+
 
   const reloadDb = () => {
     phoneServices
@@ -102,6 +108,8 @@ const App = () => {
 
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message={errorMessage} />
 
       <Filter handle={handleFilterChange} />
 

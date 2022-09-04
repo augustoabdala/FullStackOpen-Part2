@@ -14,7 +14,7 @@ const App = () => {
   const [persons, setPersons] = useState([[], []])
   const [newName, setNewName] = useState('')
   const [newNum, setNewNum] = useState('')
-  const [errorMessage, setErrorMessage] = useState('some error happened...')
+  const [message, setMessage] = useState(null)
 
 
   const reloadDb = () => {
@@ -47,6 +47,10 @@ const App = () => {
             setPersons([persons[0].concat(data), persons[1].concat(data)])
             setNewNum('')
             setNewName('')
+            setMessage(`Added ${data.name}`)
+            setTimeout(() => {
+              setMessage(null)
+            }, 3000)
           })
 
       } else
@@ -57,11 +61,16 @@ const App = () => {
     } else if (window.confirm(`${obj.name} is already added to the phonebook,
     replace the old number with a new one? `)) {
 
-      let id = persons[0].find(per => per.name === obj.name).id
+      let phone = persons[0].find(per => per.name === obj.name)
 
       phoneServices
-        .update(id, obj)
+        .update(phone.id, obj)
         .then(() => reloadDb())
+
+      setMessage(`Added ${phone.name}`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 3000)
     }
   }
 
@@ -109,7 +118,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={errorMessage} />
+      <Notification message={message} />
 
       <Filter handle={handleFilterChange} />
 

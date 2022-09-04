@@ -1,4 +1,4 @@
-const Notification = ({ message }) => {
+const Notification = ({ message, style }) => {
     if (message === null) {
       return null
     }
@@ -6,7 +6,7 @@ const Notification = ({ message }) => {
 
 
     return (
-      <div className='success'>
+      <div className={style}>
         {message}
       </div>
     )

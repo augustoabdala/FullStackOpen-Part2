@@ -11,7 +11,7 @@
 
 .error {
     color: red;
-    background: lightgrey;
+    background: rgb(161, 123, 123);
     font-size: 20px;
     border-style: solid;
     border-radius: 5px;
@@ -21,6 +21,16 @@
 
 .success {
     color: rgba(18, 216, 84, 0.687);
+    background: lightgrey;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.deleted {
+    color: red;
     background: lightgrey;
     font-size: 20px;
     border-style: solid;

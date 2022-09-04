@@ -15,6 +15,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNum, setNewNum] = useState('')
   const [message, setMessage] = useState(null)
+  const [style, setStyle] = useState(null)
 
 
   const reloadDb = () => {
@@ -47,7 +48,8 @@ const App = () => {
             setPersons([persons[0].concat(data), persons[1].concat(data)])
             setNewNum('')
             setNewName('')
-            setMessage(`Added ${data.name}`)
+            setMessage(`Added: ${data.name}`)
+            setStyle('success')
             setTimeout(() => {
               setMessage(null)
             }, 3000)
@@ -65,20 +67,48 @@ const App = () => {
 
       phoneServices
         .update(phone.id, obj)
-        .then(() => reloadDb())
-
-      setMessage(`Added ${phone.name}`)
-      setTimeout(() => {
-        setMessage(null)
-      }, 3000)
+        .then(
+          () => {
+            reloadDb()
+            setMessage(`Updated: ${phone.name}`)
+            setStyle('success')
+            setTimeout(() => {
+              setMessage(null)
+            }, 3000)
+          })
+        .catch(error => {
+          reloadDb()
+          setMessage(`Information of ${phone.name} has already been removed from server`)
+          setStyle('error')
+          console.log(error.message)
+          setTimeout(() => {
+            setMessage(null)
+          }, 3000)
+        })
     }
   }
 
   const delNum = (per) => {
-    if (window.confirm(`Delete: ${per.name}`)) {
+    if (window.confirm(`Delete: ${per.name}?`)) {
       phoneServices
         .deleteNum(per.id)
-        .then(() => reloadDb())
+        .then(() => {
+          reloadDb()
+          setMessage(`Deleted: ${per.name}`)
+          setStyle('deleted')
+          setTimeout(() => {
+            setMessage(null)
+          }, 3000)
+        })
+        .catch(error => {
+          reloadDb()
+          setMessage(`Information of ${per.name} has already been removed from server`)
+          setStyle('error')
+          console.log(error.message)
+          setTimeout(() => {
+            setMessage(null)
+          }, 3000)
+        })
     }
   }
 
@@ -118,7 +148,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={message} />
+      <Notification message={message} style={style} />
 
       <Filter handle={handleFilterChange} />
 

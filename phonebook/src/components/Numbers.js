@@ -7,9 +7,9 @@ const Numbers = (props) => {
             <ul>
                 {props.search.map(per => {
                     return (
-                        <div key={per.num}>
+                        <div key={per.number}>
                             <Num className='numbers' contact={per} />
-                            <DelButton delNum={()=>props.delNum(per)}/>
+                            <DelButton delNum={() => props.delNum(per)} />
                         </div>
                     )
                 }

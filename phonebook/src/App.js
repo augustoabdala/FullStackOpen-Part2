@@ -31,16 +31,17 @@ const App = () => {
   }, [])
 
   function addContact(event) {
+
     event.preventDefault()
 
     const obj = {
       name: newName,
-      num: newNum,
+      number: newNum,
     }
 
     if (!persons[0].find(per => per.name === obj.name)) {
 
-      if (!persons[0].find(per => per.num === obj.num)) {
+      if (!persons[0].find(per => per.number === obj.number)) {
 
         phoneServices
           .create(obj)
@@ -57,14 +58,14 @@ const App = () => {
 
       } else
         (
-          alert(`The number: ${obj.num} is already added to the phonebook.`)
+          alert(`The number: ${obj.number} is already added to the phonebook.`)
         )
 
     } else if (window.confirm(`${obj.name} is already added to the phonebook,
     replace the old number with a new one? `)) {
 
       let phone = persons[0].find(per => per.name === obj.name)
-
+      
       phoneServices
         .update(phone.id, obj)
         .then(

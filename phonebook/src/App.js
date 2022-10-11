@@ -160,6 +160,8 @@ const App = () => {
 
       <Numbers search={persons[1]} delNum={delNum} />
 
+      <a href="https://github.com/augustoabdala/FullStackOpen-Part3/blob/main/Readme.md">Readme file</a>
+
     </div>
   )
 }
